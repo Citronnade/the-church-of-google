@@ -1,5 +1,6 @@
 import unittest, re, math
-
+from bs4 import BeautifulSoup
+import google
 
 
 sl = 'abcdefghijklmnopqrstuvwxyz'
@@ -137,12 +138,12 @@ class names(unittest.TestCase):
     
 
 def givetext(text):
-    f = open(text,'r')
-    data = ''
-    for x in f:
-        data += x
-    f.close()
-    captures = [x[0] for x in first_last(data)]
+    #f = open(text,'r')
+    #data = ''
+    #for x in f:
+      #  data += x
+   #f.close()
+    captures = [x[0] for x in first_last(text)]
     otherdata = ''
     for x in captures:
         otherdata=otherdata+ ", "+(x)
@@ -155,7 +156,7 @@ def givetext(text):
 if __name__=="__main__":
     #unittest.main()
     
-    print givetext('muricans.txt')
+    #print givetext('muricans.txt')
     '''        
     f = open('muricans.txt', 'r')
     #f = open('data.txt','r')
@@ -171,5 +172,32 @@ if __name__=="__main__":
     while (True):
         ans = raw_input(">")
         print name_vector_filter([ans])
-    """
-    
+   """
+    g = google.search("Who played Chase on House?", num= 1,start = 0, stop = 4)
+    urls= []
+    #l = BeautifulSoup(google.get_page(g.next()))
+    #x = givetext(l.prettify()) 
+    for i in g:
+        urls.append(i)
+    html=[]
+    for i in urls:
+        html.append(BeautifulSoup(google.get_page(i)).prettify())
+    allnames = []
+    for i in html:
+        allnames.append(givetext(i))
+    splitted = []
+    for i in allnames:
+        splitted += i.split(",")
+    namestats = {}
+    ##all names
+    for i in splitted:
+        if i in namestats:
+            namestats[i] += 1
+        else:
+            namestats[i] = 1
+
+    final = {}
+    for i in namestats:
+        if namestats[i] >= 10:
+            final[i] = namestats[i]
+    print final
