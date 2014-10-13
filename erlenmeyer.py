@@ -11,7 +11,7 @@ def data():
     form = request.form
     question = form['query']
     answer = webapp.main(question)
-    return render_template("data.html", text=webapp.main())
+    return render_template("data.html", text=answer)
     
 if __name__ == '__main__':
     app.debug = True

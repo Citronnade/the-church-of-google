@@ -36,6 +36,7 @@ def who(s):
 
 def when(s):
     g = google.search(s, num = 1, start = 0, stop = 8)
+    '''
     soup = [(google.get_page(x)) for x in g]
     monthsoup = [findmonths(x) for x in soup]
     monthdict = {}
@@ -57,7 +58,14 @@ def when(s):
                     yeardict[year] = 1
     yeardict.update(monthdict)
     return yeardict
-    
+    '''
+    str = ''
+    for x in g:
+        str = str + x + '<br>'
+        print str
+    #return str
+    #print s
+    #print g
 
         
     
@@ -84,10 +92,10 @@ def main(question):
     thing = " ".join([x.strip() for x in re.findall(r'(\s[A-Z]\w+)+', query)]) #replace this with name finder code
     if queryType == 'Who':
         subject = who(thing)
-        print subject
+        return subject
     if queryType == 'When':
         subject = when(thing)
-        print subject
+        return subject
         
     
     
