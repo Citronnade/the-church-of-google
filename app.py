@@ -46,7 +46,21 @@ def when(s):
                     monthdict[month[0]] += len(month)
                 else:
                     monthdict[month[0]] = len(month)
-    print monthdict
+    yearsoup = [re.findall('[1-9]{4}',x) for x in soup]
+    yeardict = {}
+    for page in yearsoup:
+        if len(page) > 0:
+            for year in page:
+                if year in yeardict:
+                    yeardict[year] += 1
+                else:
+                    yeardict[year] = 1
+    yeardict.update(monthdict)
+    return yeardict
+    
+
+        
+    
 
 
 
@@ -56,7 +70,7 @@ def findmonths(s):
     months = ['January','February','March','April','May','June','July','August',
               'September','October','November','December']
     rawlists = [re.findall(x,s) for x in months]
-    return monthlist
+    return rawlists
     
 
 
