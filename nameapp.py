@@ -77,12 +77,10 @@ def word_filter(text):
     filtered = []
     for x in text:
         y = x.split()
-        for q in xrange(0,2):
-            if y[q] not in datam and y[q] not in dataf:
-                if y[q] not in datad:
-                    filtered.append(y)
-            else:
+        for q in y:
+            if (q in datam or q in dataf) or (q.lower() not in datad):
                 filtered.append(y)
+                break
     return filtered
 
 def name_vector_filter(text):

@@ -30,7 +30,7 @@ def who(s):
 
     final = {}
     for i in namestats:
-        if namestats[i] >= 100:
+        if namestats[i] >= 25:
             final[i] = namestats[i]
     return final
 
