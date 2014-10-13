@@ -34,6 +34,33 @@ def who(s):
             final[i] = namestats[i]
     return final
 
+def when(s):
+    g = google.search(s, num = 1, start = 0, stop = 8)
+    soup = [(google.get_page(x)) for x in g]
+    monthsoup = [findmonths(x) for x in soup]
+    monthdict = {}
+    for page in monthsoup:
+        for month in page:
+            if len(month) > 0:
+                if month[0] in monthdict:
+                    monthdict[month[0]] += len(month)
+                else:
+                    monthdict[month[0]] = len(month)
+    print monthdict
+
+
+
+
+
+def findmonths(s):
+    months = ['January','February','March','April','May','June','July','August',
+              'September','October','November','December']
+    rawlists = [re.findall(x,s) for x in months]
+    return monthlist
+    
+
+
+
 
 
 
@@ -44,6 +71,9 @@ if __name__ == "__main__":
     thing = " ".join([x.strip() for x in re.findall(r'(\s[A-Z]\w+)+', query)]) #replace this with name finder code
     if queryType == 'Who':
         subject = who(thing)
+        print subject
+    if queryType == 'When':
+        subject = when(thing)
         print subject
         
     
