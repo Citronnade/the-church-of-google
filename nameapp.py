@@ -144,7 +144,7 @@ def givetext(text):
       #  data += x
    #f.close()
     captures = [x[0] for x in first_last(text)]
-    captures = name_vector_filter(captures)
+    captures = word_filter(captures)
     captures = [" ".join(x) for x in captures]
     return captures
 

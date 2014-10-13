@@ -7,7 +7,7 @@ def who(s):
     #x = givetext(l.prettify()) 
     
     #soup=[(BeautifulSoup(google.get_page(x)).find_all('p') for x in urls] HOW TO SOUP
-    soup=[(google.get_page(x)) for x in urls]
+    soup=[(google.get_page(x)) for x in g]
     alphabetsoup=[nameapp.givetext(x) for x in soup]
     splitted=[]
     for x in alphabetsoup:
@@ -30,7 +30,7 @@ def who(s):
 
     final = {}
     for i in namestats:
-        if namestats[i] >= 5:
+        if namestats[i] >= 100:
             final[i] = namestats[i]
     return final
 
