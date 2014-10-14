@@ -1,24 +1,26 @@
 from bs4 import BeautifulSoup
 import re, urllib, nameapp, google, math, unittest
 
-f = open('progress.txt','w');
+
 
 def who(s):
     g = google.search(s, num= 1,start = 0, stop = 8)
     #l = BeautifulSoup(google.get_page(g.next()))
     #x = givetext(l.prettify()) 
-    
+    f=[]
     #soup=[(BeautifulSoup(google.get_page(x)).find_all('p') for x in urls] HOW TO SOUP
     urls = [x for x in g]
-    f.write("Step 1 - Collecting URLS:\n")
+    f.append("Step 1 - Collecting URLS:")
     for x in urls:
-        f.write(x+"\n")
-    f.write("\n\n\n\n")
+        f.append(x)
+    f.append("")
+    f.append("")
     soup=[(google.get_page(x)) for x in urls]
     alphabetsoup=[nameapp.givetext(x) for x in soup]
-    f.write("Step 2 - Collecting all the Names:\n")
-    f.write(str(alphabetsoup)+"\n")
-    f.write("\n\n\n\n")
+    f.append("Step 2 - Collecting all the Names:")
+    f.append(str(alphabetsoup))
+    f.append("")
+    f.append("")
     splitted=[]
     for x in alphabetsoup:
         splitted+=x
@@ -37,26 +39,30 @@ def who(s):
             namestats[i] += 1
         else:
             namestats[i] = 1
-    f.write("Step 3 - Making a Dictionary:\n")
-    f.write(str(namestats)+"\n")
-    f.write("\n\n\n\n")
+    f.append("Step 3 - Making a Dictionary:")
+    f.append(str(namestats))
+    f.append("")
+    f.append("")
     final = {};
     for i in namestats:
         if namestats[i] >= 25:
             final[i] = namestats[i]
 
-    f.write("Step 4 - Narrowing Possibilites:\n")
-    f.write(str(final)+"\n")
-    f.write("\n\n\n\n")
+    f.append("Step 4 - Narrowing Possibilites:")
+    f.append(str(final))
+    f.append("")
+    f.append("")
     maxname=final.keys()[0]
+    if (maxname == s):
+        maxname=final.keys()[1]
     maxvalue=final[maxname]
     for x in final.keys():
-        if final[x] > maxvalue:
+        if final[x] > maxvalue and x != s:
             maxname=x
             maxvalue=final[x]
-    f.write("Step 5 - The Answer:\n")
-    f.close()
-    return maxname
+    f.append("Step 5 - The Answer:")
+    f.append(maxname)
+    return f
 
 def when(s):
     g = google.search(s, num = 1, start = 0, stop = 8)
