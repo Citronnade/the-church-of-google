@@ -62,10 +62,6 @@ def when(s):
         
     
 
-
-
-
-
 def findmonths(s):
     months = ['January','February','March','April','May','June','July','August',
               'September','October','November','December']
