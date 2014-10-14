@@ -63,7 +63,7 @@ def when(s):
     for x in g:
         str = str + x + '<br>'
         print str
-    #return str
+    return str
     #print s
     #print g
 
