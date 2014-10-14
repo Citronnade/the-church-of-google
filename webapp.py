@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-import re, urllib, nameapp, google, math, unittest
+import re, urllib, nameapp, google, math, unittest,app
 
 def who(s):
     g = google.search(s, num= 1,start = 0, stop = 8)
@@ -35,7 +35,8 @@ def who(s):
     return final
 
 def when(s):
-    g = google.search(s, num = 1, start = 0, stop = 8)
+    #g = google.search(s, num = 1, start = 0, stop = 8)
+    app.when(s)
     '''
     soup = [(google.get_page(x)) for x in g]
     monthsoup = [findmonths(x) for x in soup]
@@ -58,7 +59,7 @@ def when(s):
                     yeardict[year] = 1
     yeardict.update(monthdict)
     return yeardict
-    '''
+    ''''''
     str = ''
     for x in g:
         str = str + x + '<br>'
@@ -66,6 +67,7 @@ def when(s):
     return str
     #print s
     #print g
+'''
 
         
     
@@ -91,10 +93,10 @@ def main(question):
     queryType = re.match(r'^((Who)|(When|Whom))', query).group(1)
     thing = " ".join([x.strip() for x in re.findall(r'(\s[A-Z]\w+)+', query)]) #replace this with name finder code
     if queryType == 'Who':
-        subject = who(thing)
+        subject = app.who(thing)
         return subject
     if queryType == 'When':
-        subject = when(thing)
+        subject = app.when(thing)
         return subject
         
     

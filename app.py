@@ -1,14 +1,24 @@
 from bs4 import BeautifulSoup
 import re, urllib, nameapp, google, math, unittest
 
+f = open('progress.txt','w');
+
 def who(s):
     g = google.search(s, num= 1,start = 0, stop = 8)
     #l = BeautifulSoup(google.get_page(g.next()))
     #x = givetext(l.prettify()) 
     
     #soup=[(BeautifulSoup(google.get_page(x)).find_all('p') for x in urls] HOW TO SOUP
-    soup=[(google.get_page(x)) for x in g]
+    urls = [x for x in g]
+    f.write("Step 1 - Collecting URLS:\n")
+    for x in urls:
+        f.write(x+"\n")
+    f.write("\n\n\n\n")
+    soup=[(google.get_page(x)) for x in urls]
     alphabetsoup=[nameapp.givetext(x) for x in soup]
+    f.write("Step 2 - Collecting all the Names:\n")
+    f.write(str(alphabetsoup)+"\n")
+    f.write("\n\n\n\n")
     splitted=[]
     for x in alphabetsoup:
         splitted+=x
@@ -27,12 +37,26 @@ def who(s):
             namestats[i] += 1
         else:
             namestats[i] = 1
-
-    final = {}
+    f.write("Step 3 - Making a Dictionary:\n")
+    f.write(str(namestats)+"\n")
+    f.write("\n\n\n\n")
+    final = {};
     for i in namestats:
         if namestats[i] >= 25:
             final[i] = namestats[i]
-    return final
+
+    f.write("Step 4 - Narrowing Possibilites:\n")
+    f.write(str(final)+"\n")
+    f.write("\n\n\n\n")
+    maxname=final.keys()[0]
+    maxvalue=final[maxname]
+    for x in final.keys():
+        if final[x] > maxvalue:
+            maxname=x
+            maxvalue=final[x]
+    f.write("Step 5 - The Answer:\n")
+    f.close()
+    return maxname
 
 def when(s):
     g = google.search(s, num = 1, start = 0, stop = 8)

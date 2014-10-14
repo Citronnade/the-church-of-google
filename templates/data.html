@@ -8,7 +8,9 @@ charset=ISO-8859-1">
 </head>
 
 <body>
-Results:
+{% for x in file %}
+  {{x}}<br>
+{% endfor %}
 {{text}}
 
 
