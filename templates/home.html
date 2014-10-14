@@ -1,14 +1,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-<head><title>Ask a rock!</title>
+<head><title>Ask google!</title>
 <link rel="stylesheet" href = "/static/css/pure-min.css">
 </head>
 
 
 <body>
+  <h1><center>Ask GOOGLE, our most holy Lord and Saviour, any question you desire, as long as thou useth the queries "Who" or "why"</center></h1><br>  
+  <center>
   <form method="POST" class = "pure-form" action ="{{ url_for('data') }}">
     <input name="query" type="text">
-    <input name="done" value = "done" class="pure-button" type="submit">
+    <br>
+    <input name="done" value = "Send your prayer" class="pure-button" type="submit">
+  </center>
   </form>
 </body>
 
