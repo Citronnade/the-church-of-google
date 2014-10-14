@@ -65,18 +65,21 @@ def who(s):
     return f
 
 def when(s):
+    f = []
+    f.append("Step 1 - Collecting URLS:")
     g = google.search(s, num = 1, start = 0, stop = 8)
+    urls = g
+    for annoyingvariable in urls:
+        f.append(annoyingvariable)
+    f.append("")
+    f.append("")
     soup = [(google.get_page(x)) for x in g]
-    monthsoup = [findmonths(x) for x in soup]
-    monthdict = {}
-    for page in monthsoup:
-        for month in page:
-            if len(month) > 0:
-                if month[0] in monthdict:
-                    monthdict[month[0]] += len(month)
-                else:
-                    monthdict[month[0]] = len(month)
-    yearsoup = [re.findall('[1-9]{4}',x) for x in soup]
+    f.append("Step 2 - Collecting all the Years:")
+    yearsoup = [re.findall('\s[1-2][0-9]{3}',x) for x in soup]
+    y = yearsoup
+    f.append(str(y))
+    f.append("")
+    f.append("")
     yeardict = {}
     for page in yearsoup:
         if len(page) > 0:
@@ -85,8 +88,56 @@ def when(s):
                     yeardict[year] += 1
                 else:
                     yeardict[year] = 1
-    yeardict.update(monthdict)
-    return yeardict
+ #   return yeardict
+ #   yeardict.update(monthdict)
+    
+    f.append("Step 3 - Collecting all the Months:")
+    monthsoup = [findmonths(x) for x in soup]
+    m = monthsoup
+    f.append(str(m))
+    f.append("")
+    f.append("")
+    monthdict = {}
+    for page in monthsoup:
+        for month in page:
+            if len(month) > 0:
+                if month[0] in monthdict:
+                    monthdict[month[0]] += len(month)
+                else:
+                    monthdict[month[0]] = len(month)
+
+    f.append("Step 4 - Making the Dictionaries:")
+    yd = yeardict
+    f.append(str(yd))
+    f.append("")
+    f.append("")
+    md = monthdict
+    f.append(str(md))
+    f.append("")
+    f.append("")
+
+
+    topyear = yeardict.keys()[0]
+
+    for year in yeardict:
+        if yeardict[year] > yeardict[topyear]:
+            topyear = year
+
+    topmonth = monthdict.keys()[0]
+
+    for month in monthdict:
+        if monthdict[month] > monthdict[topmonth]:
+            topmonth = month
+
+    
+
+    
+    f.append("Step 5 - The Answer:")
+    f.append(topmonth + ", " + topyear)
+    return f
+    
+
+    
     
 
         
@@ -97,6 +148,8 @@ def findmonths(s):
               'September','October','November','December']
     rawlists = [re.findall(x,s) for x in months]
     return rawlists
+
+
     
 
 
