@@ -1,26 +1,14 @@
 from bs4 import BeautifulSoup
-import re, urllib, nameapp, google, math, unittest
-
-
+import re, urllib, nameapp, google, math, unittest,app
 
 def who(s):
     g = google.search(s, num= 1,start = 0, stop = 8)
     #l = BeautifulSoup(google.get_page(g.next()))
     #x = givetext(l.prettify()) 
-    f=[]
+    
     #soup=[(BeautifulSoup(google.get_page(x)).find_all('p') for x in urls] HOW TO SOUP
-    urls = [x for x in g]
-    f.append("Step 1 - Collecting URLS:")
-    for x in urls:
-        f.append(x)
-    f.append("")
-    f.append("")
-    soup=[(google.get_page(x)) for x in urls]
+    soup=[(google.get_page(x)) for x in g]
     alphabetsoup=[nameapp.givetext(x) for x in soup]
-    f.append("Step 2 - Collecting all the Names:")
-    f.append(str(alphabetsoup))
-    f.append("")
-    f.append("")
     splitted=[]
     for x in alphabetsoup:
         splitted+=x
@@ -39,33 +27,17 @@ def who(s):
             namestats[i] += 1
         else:
             namestats[i] = 1
-    f.append("Step 3 - Making a Dictionary:")
-    f.append(str(namestats))
-    f.append("")
-    f.append("")
-    final = {};
+
+    final = {}
     for i in namestats:
         if namestats[i] >= 25:
             final[i] = namestats[i]
-
-    f.append("Step 4 - Narrowing Possibilites:")
-    f.append(str(final))
-    f.append("")
-    f.append("")
-    maxname=final.keys()[0]
-    if (maxname == s):
-        maxname=final.keys()[1]
-    maxvalue=final[maxname]
-    for x in final.keys():
-        if final[x] > maxvalue and x != s:
-            maxname=x
-            maxvalue=final[x]
-    f.append("Step 5 - The Answer:")
-    f.append(maxname)
-    return f
+    return final
 
 def when(s):
-    g = google.search(s, num = 1, start = 0, stop = 8)
+    #g = google.search(s, num = 1, start = 0, stop = 8)
+    app.when(s)
+    '''
     soup = [(google.get_page(x)) for x in g]
     monthsoup = [findmonths(x) for x in soup]
     monthdict = {}
@@ -87,10 +59,22 @@ def when(s):
                     yeardict[year] = 1
     yeardict.update(monthdict)
     return yeardict
-    
+    ''''''
+    str = ''
+    for x in g:
+        str = str + x + '<br>'
+        print str
+    return str
+    #print s
+    #print g
+'''
 
         
     
+
+
+
+
 
 def findmonths(s):
     months = ['January','February','March','April','May','June','July','August',
@@ -103,18 +87,17 @@ def findmonths(s):
 
 
 
-
-if __name__ == "__main__":
-    query = raw_input(">>>>")
+def main(question):
+    query = question
     s = google.search(query, stop=10)
     queryType = re.match(r'^((Who)|(When|Whom))', query).group(1)
     thing = " ".join([x.strip() for x in re.findall(r'(\s[A-Z]\w+)+', query)]) #replace this with name finder code
     if queryType == 'Who':
-        subject = who(thing)
-        print subject
+        subject = app.who(thing)
+        return subject
     if queryType == 'When':
-        subject = when(thing)
-        print subject
+        subject = app.when(thing)
+        return subject
         
     
     
