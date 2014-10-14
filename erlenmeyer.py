@@ -10,8 +10,7 @@ def data():
     form = request.form
     question = form['query']
     answer = webapp.main(question)
-    f = open('progress.txt').readlines()
-    return render_template("data.html", text=answer, file = f)
+    return render_template("data.html", text=answer)
     
 if __name__ == '__main__':
     app.debug = True
