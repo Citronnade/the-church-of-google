@@ -68,12 +68,12 @@ def when(s):
     f = []
     f.append("Step 1 - Collecting URLS:")
     g = google.search(s, num = 1, start = 0, stop = 8)
-    urls = g
+    urls = [x for x in g]
     for annoyingvariable in urls:
         f.append(annoyingvariable)
     f.append("")
     f.append("")
-    soup = [(google.get_page(x)) for x in g]
+    soup = [(google.get_page(x)) for x in urls]
     f.append("Step 2 - Collecting all the Years:")
     yearsoup = [re.findall('\s[1-2][0-9]{3}',x) for x in soup]
     y = yearsoup
@@ -115,8 +115,6 @@ def when(s):
     f.append(str(md))
     f.append("")
     f.append("")
-
-
     topyear = yeardict.keys()[0]
 
     for year in yeardict:
